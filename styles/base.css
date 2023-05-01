@@ -42,12 +42,13 @@
 
   /* Effects */
   --margin: max(min(1vw, 15px), 8px);
-  --padding: max(min(1vw, 30px), 10px);
+  --padding: max(min(1vw, 30px), 10px) max(min(1.5vw, 40px), 15px);
 
   --radius: max(min(1vw, 15px), 8px);
   --smallradius: max(min(0.3vw, 7px), 5px);
 
   --glow: 0 0 7px 3px rgba(0, 0, 0, 0.2);
+  --glow2: 0 0 5px 2px rgba(0, 0, 0, 0.15);
 
   --shortglow: 0 0 2px 2px rgba(0, 0, 0, 0.05);
   --shorterglow: 0 0 1px 1px rgba(0, 0, 0, 0.06);
