@@ -3,7 +3,7 @@ import Head from "next/head";
 import s from "../../styles/Home.module.css";
 import { NavBar, Footer } from "../navigation/navbar";
 
-export const siteTitle = "Site Title";
+export const siteTitle = "Mini Reto 2: Tareas";
 
 export default function Layout({ children }) {
   return (
