@@ -12,6 +12,7 @@
   --white: #fff;
   --main: #6800ff;
   --accent: #41009e;
+  --accent2: #b380ff;
 
   /* Responsive font sizes */
   --XXXXL: max(min(3vw, 4rem), 2.5rem);

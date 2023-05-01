@@ -186,3 +186,113 @@
   color: var(--darkergrey);
   font-weight: bold;
 }
+
+.btn {
+  color: var(--white);
+  background-color: var(--accent);
+  border-radius: var(--smallradius);
+  padding: 2px 5px;
+}
+.btn2 {
+  color: var(--white);
+  background-color: var(--accent2);
+  border-radius: var(--smallradius);
+  padding: 2px 5px;
+  margin: 0px 3px;
+}
+
+.li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px;
+  border-radius: var(--smallradius);
+  background-color: var(--lightgrey);
+  margin: 5px 0px;
+}
+
+.liTitle {
+  color: var(--darkergrey);
+  font-weight: bold;
+  white-space: nowrap;
+  margin: 0px 10px;
+}
+.liTxt {
+  color: var(--darkergrey);
+  width: 100%;
+}
+
+.borrarSelected {
+  width: 100%;
+  background-color: var(--accent);
+  color: var(--white);
+  border-radius: var(--smallradius);
+  padding: 2px 5px;
+  cursor: pointer;
+}
+
+.borrarSelectedH {
+  display: none;
+}
+/* Modal */
+
+.modalCont {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  height: fit-content;
+
+  width: fit-content;
+  min-width: 400px;
+
+  @media (max-width: 700px) {
+    font-size: var(--L);
+  }
+
+  @media (min-width: 700px) {
+    font-size: var(--S);
+  }
+
+  background-color: var(--lightergrey);
+  border-radius: var(--radius);
+  box-shadow: var(--glow);
+}
+
+.modalContCont {
+  width: 100%;
+  margin: 50px;
+}
+
+.modalText {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0px;
+  font-weight: bold;
+}
+
+.modalInput {
+  font-weight: 400;
+  margin-left: 10px;
+  border-radius: var(--smallradius);
+}
+.btnModalCont {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.btnModal {
+  width: 49%;
+  color: var(--white);
+  background-color: var(--accent);
+  border-radius: var(--smallradius);
+}
+.btnModal2 {
+  width: 49%;
+  color: var(--white);
+  background-color: var(--accent2);
+  border-radius: var(--smallradius);
+}
