@@ -75,3 +75,65 @@
   font-size: var(--S);
   cursor: pointer;
 }
+
+/* Tareas */
+
+.mainCont {
+  position: absolute;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  padding: 30px;
+}
+
+.tareasCont {
+  width: 50%;
+  background-color: var(--lightergrey);
+  border-radius: var(--radius);
+  box-shadow: var(--shortglow);
+  padding: var(--padding);
+  margin: var(--margin);
+}
+
+.together {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  height: 100%;
+}
+
+.compCont {
+  height: 100%;
+  background-color: var(--lightergrey);
+  border-radius: var(--radius);
+  box-shadow: var(--shortglow);
+  margin: var(--margin);
+  padding: var(--padding);
+}
+
+.nuevaCont {
+  height: 150px;
+  background-color: var(--lightergrey);
+  border-radius: var(--radius);
+  box-shadow: var(--shortglow);
+  margin: var(--margin);
+  padding: 15px;
+}
+
+.nueva {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: var(--smallradius);
+  color: var(--white);
+  font-weight: 600;
+  font-size: var(--S);
+  background-color: var(--main);
+  transition: 0.2s all ease-in-out;
+}
+
+.nueva:hover {
+  background-color: var(--accent);
+}

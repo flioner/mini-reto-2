@@ -1,25 +1,49 @@
 import Layout from "../components/layout/layout";
-import { ProfileSlider, VerticalSlider } from "../components/ui/slider/slider";
 import s from "../styles/Home.module.css";
-import React, { useState } from "react";
-import Typewriter from "typewriter-effect";
-import { LaptopViewer } from "../components/threejs/canvas";
-import { VantaBG } from "../components/threejs/vanta";
-import { ObjViewer } from "../components/threejs/threejs";
-import { Modal } from "../components/ui/modal/modal";
-import { ImageCollection } from "../components/ui/image_collection/image_collection";
-import { ImageHero } from "../components/ui/imgHero/imghero";
-import DotWave from "../components/threejs/dots/dotwave";
-import { ProductDemo } from "../components/product_demo/productDemo";
-import Categories from "../components/categories/categories";
-import { Contact } from "../components/ui/contact/contact";
+import React, { useState, useEffect } from "react";
 
 export default function Home() {
-  const [visibleDot, setDots] = useState(false);
+  const [tareasPendientes, setTareasPendientes] = useState([]);
+  const [tareasCompletas, setTareasCompletas] = useState([]);
+
+  useEffect(() => {
+    fetch("https://mini-reto-delta.vercel.app/tareas/pendientes")
+      .then((response) => response.json())
+      .then((data) => setTareasPendientes(data))
+      .catch((error) => console.error(error));
+
+    fetch("https://mini-reto-delta.vercel.app/tareas/completas")
+      .then((response) => response.json())
+      .then((data) => setTareasCompletas(data))
+      .catch((error) => console.error(error));
+  }, []);
 
   return (
     <Layout>
-      <div></div>
+      <div className={s.mainCont}>
+        <div className={s.tareasCont}>
+          <h2>Pendientes</h2>
+          <ul>
+            {tareasPendientes.map((tarea) => (
+              <li key={tarea.id}>{tarea.descripcion}</li>
+            ))}
+          </ul>
+        </div>
+
+        <div className={s.together}>
+          <div className={s.compCont}>
+            <h2>Completas</h2>
+            <ul>
+              {tareasCompletas.map((tarea) => (
+                <li key={tarea.id}>{tarea.descripcion}</li>
+              ))}
+            </ul>
+          </div>
+          <div className={s.nuevaCont}>
+            <button className={s.nueva}> Nueva Tarea</button>
+          </div>
+        </div>
+      </div>
     </Layout>
   );
 }

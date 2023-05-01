@@ -13,13 +13,9 @@ export default function Layout({ children }) {
         <link rel="icon" href="icon.png" alt-text="" />
       </Head>
 
-      {<></>}
-
       <div className={s.contContainer}>
         <div className={s.container}>
-          <main>
-            <NavBar /> {children} <Footer />
-          </main>
+          <main>{children}</main>
         </div>
       </div>
     </div>

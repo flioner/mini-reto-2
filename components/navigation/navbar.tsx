@@ -30,9 +30,6 @@ const NavBar = ({}) => {
         <img className={s.icon} src="icon.png" alt-text="" />
         <div className={s.mainTitle}>Site Title</div>
       </div>
-      <Contact>
-        <div className={s.contacto}> Contact </div>
-      </Contact>
     </div>
   );
 };
@@ -61,7 +58,7 @@ const Footer = ({}) => {
     <div>
       <div className={s.footerSpacer}></div>
       <div className={s.footer} onClick={() => routeTo("/")}>
-        Name © 2023
+        Mini Reto 2 © 2023
       </div>
     </div>
   );

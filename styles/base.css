@@ -10,6 +10,8 @@
   --lightestgrey: #f6f6f6;
   --almostwhite: #f9f9f9;
   --white: #fff;
+  --main: #6800ff;
+  --accent: #41009e;
 
   /* Responsive font sizes */
   --XXXXL: max(min(3vw, 4rem), 2.5rem);
@@ -39,6 +41,11 @@
   --EXXS: max(min(1.2vw, 1.3rem), 0.55rem);
 
   /* Effects */
+  --margin: max(min(1vw, 15px), 8px);
+  --padding: max(min(1vw, 30px), 10px);
+
+  --radius: max(min(1vw, 15px), 8px);
+  --smallradius: max(min(0.3vw, 7px), 5px);
 
   --glow: 0 0 7px 3px rgba(0, 0, 0, 0.2);
 
