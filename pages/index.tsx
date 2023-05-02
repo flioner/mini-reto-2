@@ -12,11 +12,36 @@ export default function Home() {
   const [openCreate, setOpenCreate] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
   const [editId, setEditId] = useState(1);
+  const [titulo, setTitulo] = useState("");
+  const [descripcion, setDescripcion] = useState("");
 
   const editTarea = (id) => {
     setEditId(id);
     setOpenEdit(true);
   };
+
+  const crearTarea = () => {
+    const nextId = Math.max(...tareasPendientes.map((tarea) => tarea.id)) + 1;
+    axios
+      .post("https://mini-reto-delta.vercel.app/tareas", {
+        id: nextId,
+        titulo,
+        descripcion,
+        completada: false,
+      })
+      .then((response) => {
+        const nuevaTarea = {
+          id: nextId,
+          titulo,
+          descripcion,
+          completada: false,
+        };
+        setTareasPendientes([...tareasPendientes, nuevaTarea]);
+        console.log(response);
+      })
+      .catch((error) => console.error(error));
+  };
+
   const togglePendientes = (taskId) => {
     setSelectedPendientes((prevSelected) => {
       // Check if task already exists in selectedPendientes
@@ -153,14 +178,29 @@ export default function Home() {
           <div className={s.modalContCont}>
             <div className={s.modalText}>
               Titulo:
-              <input className={s.modalInput} type="text" />
+              <input
+                className={s.modalInput}
+                type="text"
+                placeholder="Título"
+                value={titulo}
+                onChange={(e) => setTitulo(e.target.value)}
+              />
             </div>
             <div className={s.modalText}>
-              Descripción: <input className={s.modalInput} type="text" />
+              Descripción:
+              <input
+                className={s.modalInput}
+                type="text"
+                placeholder="Descripción"
+                value={descripcion}
+                onChange={(e) => setDescripcion(e.target.value)}
+              />
             </div>
 
             <div className={s.btnModalCont}>
-              <button className={s.btnModal}>Crear Tarea</button>
+              <button className={s.btnModal} onClick={crearTarea}>
+                Crear Tarea
+              </button>
               <button
                 className={s.btnModal2}
                 onClick={() => setOpenCreate(false)}
