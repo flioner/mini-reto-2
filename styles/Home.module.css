@@ -222,6 +222,12 @@
   width: 100%;
 }
 
+.twoBtnCont {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .borrarSelected {
   width: 100%;
   background-color: var(--accent);
@@ -232,6 +238,20 @@
 }
 
 .borrarSelectedH {
+  display: none;
+}
+
+.compSelected {
+  width: 100%;
+  background-color: var(--accent2);
+  color: var(--white);
+  border-radius: var(--smallradius);
+  padding: 2px 5px;
+  cursor: pointer;
+  margin-right: 5px;
+}
+
+.compSelectedH {
   display: none;
 }
 /* Modal */

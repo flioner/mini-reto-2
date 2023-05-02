@@ -20,6 +20,92 @@ export default function Home() {
     setOpenEdit(true);
   };
 
+  const handleEdit = () => {
+    axios
+      .put(`https://mini-reto-delta.vercel.app/tareas/${editId}`, {
+        id: editId,
+        titulo,
+        descripcion,
+        completada: false,
+      })
+      .then((response) => {
+        const index = tareasPendientes.findIndex(
+          (tarea) => tarea.id === editId
+        );
+        const updatedTarea = {
+          ...tareasPendientes[index],
+          titulo,
+          descripcion,
+        };
+        const updatedTareas = [
+          ...tareasPendientes.slice(0, index),
+          updatedTarea,
+          ...tareasPendientes.slice(index + 1),
+        ];
+        setTareasPendientes(updatedTareas);
+        setEditId(1);
+        setOpenEdit(false);
+      })
+      .catch((error) => console.error(error));
+  };
+
+  const borrarPendientes = () => {
+    tareasPendientes.forEach((tarea) => {
+      if (selectedPendientes.includes(tarea.id)) {
+        axios
+          .delete(`https://mini-reto-delta.vercel.app/tareas/${tarea.id}`)
+          .then(() => {
+            setTareasPendientes((prevTareas) =>
+              prevTareas.filter((t) => t.id !== tarea.id)
+            );
+          })
+          .catch((error) => console.error(error));
+      }
+    });
+    setSelectedPendientes([]);
+  };
+
+  const borrarCompetas = () => {
+    tareasCompletas.forEach((tarea) => {
+      if (selectedCompletas.includes(tarea.id)) {
+        axios
+          .delete(`https://mini-reto-delta.vercel.app/tareas/${tarea.id}`)
+          .then(() => {
+            setTareasCompletas((prevTareas) =>
+              prevTareas.filter((t) => t.id !== tarea.id)
+            );
+          })
+          .catch((error) => console.error(error));
+      }
+    });
+    setSelectedCompletas([]);
+  };
+
+  const marcarCompletadas = () => {
+    tareasPendientes.forEach((tarea) => {
+      if (selectedPendientes.includes(tarea.id)) {
+        axios
+          .put(`https://mini-reto-delta.vercel.app/tareas/${tarea.id}`, {
+            id: tarea.id,
+            titulo: tarea.titulo,
+            descripcion: tarea.descripcion,
+            completada: true,
+          })
+          .then((response) => {
+            const tareaCompletada = tareasPendientes.find(
+              (t) => t.id === tarea.id
+            );
+            setTareasPendientes((prevState) =>
+              prevState.filter((t) => t.id !== tarea.id)
+            );
+            setTareasCompletas((prevState) => [...prevState, tareaCompletada]);
+          })
+          .catch((error) => console.error(error));
+      }
+    });
+    setSelectedPendientes([]);
+  };
+
   const crearTarea = () => {
     const nextId = Math.max(...tareasPendientes.map((tarea) => tarea.id)) + 1;
     axios
@@ -39,7 +125,9 @@ export default function Home() {
         setTareasPendientes([...tareasPendientes, nuevaTarea]);
         console.log(response);
       })
+
       .catch((error) => console.error(error));
+    setOpenCreate(false);
   };
 
   const togglePendientes = (taskId) => {
@@ -109,15 +197,29 @@ export default function Home() {
         <div className={s.contCont}>
           <div className={s.tareasCont}>
             <div className={s.title}>Pendientes</div>
-            <button
-              className={
-                selectedPendientes.length != 0
-                  ? s.borrarSelected
-                  : s.borrarSelectedH
-              }
-            >
-              Borrar tareas seleccionadas
-            </button>
+            <div className={s.twoBtnCont}>
+              <button
+                onClick={() => marcarCompletadas()}
+                className={
+                  selectedPendientes.length != 0
+                    ? s.compSelected
+                    : s.compSelectedH
+                }
+              >
+                Marcar como completadas
+              </button>
+              <button
+                onClick={() => borrarPendientes()}
+                className={
+                  selectedPendientes.length != 0
+                    ? s.borrarSelected
+                    : s.borrarSelectedH
+                }
+              >
+                Borrar tareas seleccionadas
+              </button>
+            </div>
+
             <ul>
               {tareasPendientes.map((tarea) => (
                 <li className={s.li} key={tarea.id}>
@@ -148,10 +250,23 @@ export default function Home() {
           <div className={s.together}>
             <div className={s.compCont}>
               <div className={s.title}>Completadas</div>
+              <button
+                onClick={() => borrarCompetas()}
+                className={
+                  selectedCompletas.length != 0
+                    ? s.borrarSelected
+                    : s.borrarSelectedH
+                }
+              >
+                Borrar tareas seleccionadas
+              </button>
               <ul>
                 {tareasCompletas.map((tarea) => (
                   <li className={s.li} key={tarea.id}>
-                    <input type="checkbox" />
+                    <input
+                      type="checkbox"
+                      onChange={() => toggleCompletas(tarea.id)}
+                    />
                     <div className={s.liTitle}> {tarea.titulo} </div>
                     <div className={s.liTxt}> {tarea.descripcion} </div>
 
@@ -224,10 +339,12 @@ export default function Home() {
                   editId &&
                   tareasPendientes.find((tarea) => tarea.id === editId)?.titulo
                 }
+                value={titulo}
+                onChange={(e) => setTitulo(e.target.value)}
               />
             </div>
             <div className={s.modalText}>
-              Descripción:{" "}
+              Descripción:
               <input
                 className={s.modalInput}
                 type="text"
@@ -236,11 +353,15 @@ export default function Home() {
                   tareasPendientes.find((tarea) => tarea.id === editId)
                     ?.descripcion
                 }
+                value={descripcion}
+                onChange={(e) => setDescripcion(e.target.value)}
               />
             </div>
 
             <div className={s.btnModalCont}>
-              <button className={s.btnModal}>Editar Tarea</button>
+              <button className={s.btnModal} onClick={() => handleEdit()}>
+                Editar Tarea
+              </button>
               <button
                 className={s.btnModal2}
                 onClick={() => setOpenEdit(false)}
